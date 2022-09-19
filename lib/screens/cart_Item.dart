@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruits/models/fruit.dart';
+import 'package:fruits/models/cart_item.dart';
 import 'package:fruits/screens/home.dart';
 
 // This Widget is the Cart Area
@@ -100,7 +100,7 @@ class _CartItemState extends State<CartItem> with TickerProviderStateMixin {
 
   //Cart list image style
   Widget buildContainerImage({double size = 80}) {
-    return Container(
+    return Container(// New column containing cart items
       width: size,
       height: size,
       margin: EdgeInsets.all(10),

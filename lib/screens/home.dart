@@ -1,9 +1,8 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:fruits/actions/cart_notifier.dart';
+import 'package:fruits/models/cart_item.dart';
+import 'package:fruits/providers/cart.dart';
 import 'package:fruits/screens/cart_list.dart';
 import 'package:fruits/screens/cart_Item.dart';
-import 'package:fruits/models/fruit.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -85,9 +84,7 @@ class _MyHomePageState extends State<MyHomePage>
           ),
           Expanded(
             child: ListView(
-              children: getFruitsList()
-              .map((f) => buildFruit(f))
-              .toList(),
+              children: getFruitsList().map((f) => buildFruit(f)).toList(),
             ),
           )
         ],
@@ -106,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage>
           flex: 4,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text( 'Pick Your Fruit',
+            child: Text('Pick Your Fruit',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
           ),
         ),
@@ -152,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage>
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Container(
+                    // Part of the card containing fruit image
                     key: key,
                     color: fruit.color,
                     child: Image.asset(
@@ -160,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage>
                     ),
                   ),
                   Container(
+                    // Part of the card that containing fruit name
                     height: 50,
                     margin: EdgeInsets.only(left: 20, bottom: 10),
                     child: Align(
@@ -178,6 +177,7 @@ class _MyHomePageState extends State<MyHomePage>
         Column(
           children: <Widget>[
             Container(
+              // Part of the card containing price
               padding: EdgeInsets.all(20),
               child: Text(
                 '\$${fruit.price}',
@@ -186,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             InkWell(
               onTap: () {
-                print('just tapped me line 216');
+                print('adding fruit line');
                 if (cartNotifier.cartFruit.length == 0)
                   slideController.forward();
                 setState(() {
@@ -207,6 +207,7 @@ class _MyHomePageState extends State<MyHomePage>
                 });
               },
               child: Card(
+                // Part of card containing the add button
                 elevation: 4,
                 child: Container(
                   height: 60,
@@ -220,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage>
         )
       ],
     );
-  }
+  } // This is entire fruit card section
 
   // List of Cart Items when picked
   Widget buildSecondList() {
@@ -241,24 +242,24 @@ class _MyHomePageState extends State<MyHomePage>
             height: 15,
           ),
           Expanded(
-              child: ListView.builder(
-            itemCount: list.cartFruit.length,
-            itemBuilder: (context, index) {
-              print(list);
-              return CartItem(list.cartFruit[index], index);
-            },
-          ),
-        ),
-          FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => CartList(),
-                  ),
-                );
+            child: ListView.builder(
+              itemCount: list.cartFruit.length,
+              itemBuilder: (context, index) {
+                print(list);
+                return CartItem(list.cartFruit[index], index);
               },
-               child: Icon(Icons.shopping_cart),
-               backgroundColor: Colors.pink,
+            ),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => CartList(),
+                ),
+              );
+            },
+            child: Icon(Icons.shopping_cart),
+            backgroundColor: Colors.pink,
           ),
         ],
       ),
