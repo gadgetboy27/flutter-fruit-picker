@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruits/models/cart_item.dart';
+import 'package:fruits/models/fruit_item.dart';
 import 'package:fruits/screens/home.dart';
 
 // This Widget is the Cart Area
@@ -7,7 +7,6 @@ import 'package:fruits/screens/home.dart';
 class CartItem extends StatefulWidget {
   Fruit fruit;
   int index;
-  // Color color;
 
   CartItem(this.fruit, this.index);
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fruits/models/cart_item.dart';
+import 'package:fruits/models/fruit_item.dart';
 import 'package:fruits/providers/cart.dart';
-import 'package:fruits/screens/cart_list.dart';
+import 'package:fruits/screens/cart_page.dart';
 import 'package:fruits/screens/cart_Item.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +13,8 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   AnimationController slideController;
   List<Fruit> cartFruit = [];
+  
+  get fruit => null;
 
   @override
   void initState() {
@@ -84,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage>
           ),
           Expanded(
             child: ListView(
-              children: getFruitsList().map((f) => buildFruit(f)).toList(),
+              children: getFruitsList().map((f)
+               => buildFruit(f)).toList(),
             ),
           )
         ],
@@ -202,6 +205,7 @@ class _MyHomePageState extends State<MyHomePage>
                   } else {
                     fruit.Qty = 1;
                     cartNotifier.cartFruit.add(fruit);
+                    print(fruit.name);
                   }
                   print(fruit.qty);
                 });
@@ -245,7 +249,7 @@ class _MyHomePageState extends State<MyHomePage>
             child: ListView.builder(
               itemCount: list.cartFruit.length,
               itemBuilder: (context, index) {
-                print(list);
+                print(cartFruit);
                 return CartItem(list.cartFruit[index], index);
               },
             ),
@@ -254,7 +258,10 @@ class _MyHomePageState extends State<MyHomePage>
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (BuildContext context) => CartList(),
+                  builder: (context) => CartPage(
+                    fruit: list,
+                    cartFruit: [0],
+                  ),
                 ),
               );
             },
